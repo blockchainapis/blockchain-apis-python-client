@@ -9,7 +9,7 @@ With this SDK you can:
 - Get the current reserves of any pair
 - Use the same code to gather data from many blockchains and exchanges
 
-Since DeFi is volatile and fast moving, you need an SDK that is high performant. Here are the capabilities of **Blockchain APIs**:
+Since DeFi is volatile and fast moving space, you need an SDK that is highly performant. Here are the capabilities of **Blockchain APIs**:
 - Make async API calls for more than 1000 requests per second
 - Processing time 20 times faster than the blockchain
 
