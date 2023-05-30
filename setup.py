@@ -5,12 +5,12 @@ with open("README.md", "r", encoding="utf-8") as f:
     
 setuptools.setup(
     name = "blockchain-apis",
-    version = "0.0.1",
+    version = "0.0.2",
     author = "Clarensia",
     author_email = "contact@blockchainapis.io",
     description = "Fastest and easiest way to access decentralized finance data",
     long_description = long_description,
-    long_description_type = "text/markdown",
+    long_description_content_type = "text/markdown",
     url = "https://www.blockchainapis.io",
     license="MIT",
     classifiers=[

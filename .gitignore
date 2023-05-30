@@ -4,3 +4,6 @@ secret_*
 __pycache__
 venv
 .venv
+blockchain_apis.egg-info
+dist
+build
