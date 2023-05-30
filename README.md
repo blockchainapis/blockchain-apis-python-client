@@ -19,6 +19,7 @@ Examples of project that you can make with **Blockchain APIs**:
 - Application to track cryptocurrency prices
 
 To get any help, feel free to join [our discord](https://discord.gg/GphRMJXmS5)
+Documentation link: [https://api.blockchainapis.io/docs](https://api.blockchainapis.io/docs)
 
 ## Quickstart
 
