@@ -44,6 +44,7 @@ setup(
         'Tracker': 'https://github.com/blockchainapis/blockchain-apis-python-client/issues',
         'Discord': 'https://discord.gg/GphRMJXmS5'
     },
+    package_dir = {"": "src"},
     packages = find_packages(where="src"),
     install_requires = [
         'aiohttp',
