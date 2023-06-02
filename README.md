@@ -48,7 +48,6 @@ async def print_eth_price():
     await blockchain_apis.close()
 
 asyncio.run(print_eth_price())
-
 ```
 
 #### Example response:
