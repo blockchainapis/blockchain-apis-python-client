@@ -1,4 +1,3 @@
-
 from dataclasses import asdict
 
 from BlockchainAPIsSyncTester import BlockchainAPIsSyncTester

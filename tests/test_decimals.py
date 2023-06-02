@@ -1,6 +1,3 @@
-
-from dataclasses import asdict
-
 from BlockchainAPIsTester import BlockchainAPIsTester
 
 class TestDecimals(BlockchainAPIsTester):
