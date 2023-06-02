@@ -1,9 +1,9 @@
-import setuptools
+from setuptools import setup, find_packages
 
 with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
     
-setuptools.setup(
+setup(
     name = "blockchain-apis",
     version = "0.1.0",
     author = "Clarensia",
@@ -44,7 +44,7 @@ setuptools.setup(
         'Tracker': 'https://github.com/blockchainapis/blockchain-apis-python-client/issues',
         'Discord': 'https://discord.gg/GphRMJXmS5'
     },
-    package_dir = {"": "src"},
+    packages = find_packages(where="src"),
     install_requires = [
         'aiohttp',
         'requests'
