@@ -32,7 +32,7 @@ Documentation link: [https://api.blockchainapis.io/docs](https://api.blockchaina
 ```python
 import asyncio
 
-from BlockchainAPIs import BlockchainAPIs
+from blockchainapis import BlockchainAPIs
 
 async def print_eth_price():
     blockchain_apis = BlockchainAPIs()
