@@ -3,25 +3,24 @@ import requests
 from typing import Any, Dict, List
 from urllib.parse import urljoin
 
-from models.Blockchain import Blockchain
-from models.Exchanges import Exchanges
-from models.Exchange import Exchange
-from models.Pairs import Pairs
-from models.Pair import Pair
-from models.Reserve import Reserve
-from models.AmountOut import AmountOut
-from models.AmountIn import AmountIn
-from models.Tokens import Tokens
-from models.Token import Token
+from models import Blockchain
+from models import Exchanges
+from models import Exchange
+from models import Pairs
+from models import Pair
+from models import Reserve
+from models import AmountOut
+from models import AmountIn
+from models import Tokens
+from models import Token
 
-from exceptions.BlockchainNotSupportedException import BlockchainNotSupportedException
-from exceptions.ExchangeNotSupportedException import ExchangeNotSupportedException
-from exceptions.InvalidPageException import InvalidPageException
-from exceptions.TokenNotFoundException import TokenNotFoundException
-from exceptions.PairNotFoundException import PairNotFoundException
-from exceptions.TooManyRequestException import TooManyRequestException
-from exceptions.UnauthorizedException import UnauthorizedException
-
+from exceptions import BlockchainNotSupportedException
+from exceptions import ExchangeNotSupportedException
+from exceptions import InvalidPageException
+from exceptions import TokenNotFoundException
+from exceptions import PairNotFoundException
+from exceptions import TooManyRequestException
+from exceptions import UnauthorizedException
 
 
 class BlockchainAPIsSync:

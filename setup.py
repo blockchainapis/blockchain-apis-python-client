@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as f:
     
 setuptools.setup(
     name = "blockchain-apis",
-    version = "0.0.2",
+    version = "0.1.0",
     author = "Clarensia",
     author_email = "contact@blockchainapis.io",
     description = "Fastest and easiest way to access decentralized finance data",
@@ -44,7 +44,7 @@ setuptools.setup(
         'Tracker': 'https://github.com/blockchainapis/blockchain-apis-python-client/issues',
         'Discord': 'https://discord.gg/GphRMJXmS5'
     },
-    package_dir = {"": "blockchain_apis"},
+    package_dir = {"": "src"},
     install_requires = [
         'aiohttp',
         'requests'
