@@ -105,5 +105,3 @@ asyncio.run(print_eth_price())
   }
 ]
 ```
-
-
