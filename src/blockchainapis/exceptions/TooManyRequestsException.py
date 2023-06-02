@@ -1,6 +1,6 @@
 from .BlockchainAPIsException import BlockchainAPIsException
 
-class TooManyRequestException(BlockchainAPIsException):
+class TooManyRequestsException(BlockchainAPIsException):
     """
     Thrown when you are doing more request than you are allowed to the API.
     

@@ -11,7 +11,7 @@ from .ExchangeNotSupportedException import ExchangeNotSupportedException
 from .InvalidPageException import InvalidPageException
 from .PairNotFoundException import PairNotFoundException
 from .TokenNotFoundException import TokenNotFoundException
-from .TooManyRequestException import TooManyRequestsException
+from .TooManyRequestsException import TooManyRequestsException
 from .UnauthorizedException import UnauthorizedException
 
 __all__ = [

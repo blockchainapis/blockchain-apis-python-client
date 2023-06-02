@@ -19,7 +19,7 @@ from .exceptions import ExchangeNotSupportedException
 from .exceptions import InvalidPageException
 from .exceptions import TokenNotFoundException
 from .exceptions import PairNotFoundException
-from .exceptions import TooManyRequestException
+from .exceptions import TooManyRequestsException
 from .exceptions import UnauthorizedException
 
 
@@ -92,7 +92,7 @@ class BlockchainAPIsSync:
                 case "PairNotFoundException":
                     raise PairNotFoundException(response.status, error_data["detail"]["detail"])
                 case "TooManyRequestException":
-                    raise TooManyRequestException(response.status, error_data["detail"]["detail"])
+                    raise TooManyRequestsException(response.status, error_data["detail"]["detail"])
                 case "UnauthorizedException":
                     raise UnauthorizedException(response.status, error_data["detail"]["detail"])
                 case unknown:
