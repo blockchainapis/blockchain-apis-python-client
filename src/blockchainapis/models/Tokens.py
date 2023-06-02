@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import List
-from models.Token import Token
+
+from . import Token
 
 
 @dataclass(slots=True, frozen=True)

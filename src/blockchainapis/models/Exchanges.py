@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import List
-from models.Exchange import Exchange
+
+from . import Exchange
 
 
 @dataclass(slots=True, frozen=True)

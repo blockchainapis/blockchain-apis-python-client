@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import List
-from models.Pair import Pair
+
+from . import Pair
 
 
 @dataclass(slots=True, frozen=True)

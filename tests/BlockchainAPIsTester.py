@@ -4,7 +4,7 @@ from typing import Any
 
 from aiohttp import ClientSession
 
-from BlockchainAPIs import BlockchainAPIs
+from src.blockchainapis import BlockchainAPIs
 from secret_config import API_KEY
 
 class BlockchainAPIsTester(IsolatedAsyncioTestCase):

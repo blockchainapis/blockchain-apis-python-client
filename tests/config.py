@@ -1,4 +1,3 @@
-
 # Fill this file with your config and rename it secret_config.yml
 
 # Write your api key here.

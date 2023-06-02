@@ -1,5 +1,4 @@
-
-from exceptions.BlockchainAPIsException import BlockchainAPIsException
+from .BlockchainAPIsException import BlockchainAPIsException
 
 class BlockchainNotSupportedException(BlockchainAPIsException):
     """

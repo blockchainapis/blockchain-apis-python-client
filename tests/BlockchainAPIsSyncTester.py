@@ -5,7 +5,7 @@ from unittest import TestCase
 from typing import Any
 from urllib.parse import urljoin
 
-from BlockchainAPIsSync import BlockchainAPIsSync
+from src.blockchainapis import BlockchainAPIsSync
 from secret_config import API_KEY
 
 class BlockchainAPIsSyncTester(TestCase):

@@ -2,24 +2,24 @@ from typing import Any, Dict, List
 
 from aiohttp import ClientSession
 
-from models import Blockchain
-from models import Exchanges
-from models import Exchange
-from models import Pairs
-from models import Pair
-from models import Reserve
-from models import AmountOut
-from models import AmountIn
-from models import Tokens
-from models import Token
+from .models import Blockchain
+from .models import Exchanges
+from .models import Exchange
+from .models import Pairs
+from .models import Pair
+from .models import Reserve
+from .models import AmountOut
+from .models import AmountIn
+from .models import Tokens
+from .models import Token
 
-from exceptions import BlockchainNotSupportedException
-from exceptions import ExchangeNotSupportedException
-from exceptions import InvalidPageException
-from exceptions import TokenNotFoundException
-from exceptions import PairNotFoundException
-from exceptions import TooManyRequestException
-from exceptions import UnauthorizedException
+from .exceptions import BlockchainNotSupportedException
+from .exceptions import ExchangeNotSupportedException
+from .exceptions import InvalidPageException
+from .exceptions import TokenNotFoundException
+from .exceptions import PairNotFoundException
+from .exceptions import TooManyRequestException
+from .exceptions import UnauthorizedException
 
 
 class BlockchainAPIs:
