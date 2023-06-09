@@ -28,4 +28,3 @@ class Exchange:
 
     Example: "https://exchange.lydia.finance/#/swap"
     """
-

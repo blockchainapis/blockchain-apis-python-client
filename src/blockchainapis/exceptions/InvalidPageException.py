@@ -1,4 +1,4 @@
-from .BlockchainAPIsException import BlockchainAPIsException
+from . import BlockchainAPIsException
 
 class InvalidPageException(BlockchainAPIsException):
     """
@@ -13,13 +13,11 @@ class InvalidPageException(BlockchainAPIsException):
     the amount of pages available.
     """
 
-
     status_code: str
     """The error code returned by the call to the API
     
     For example: 400
     """
-
 
     detail: str
     """Some details about the error that occured

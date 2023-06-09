@@ -1,4 +1,4 @@
-from .BlockchainAPIsException import BlockchainAPIsException
+from . import BlockchainAPIsException
 
 class PairNotFoundException(BlockchainAPIsException):
     """
@@ -8,13 +8,11 @@ class PairNotFoundException(BlockchainAPIsException):
     the blockchain and exchange that you are interested in by calling `/exchanges/pairs`
     """
 
-
     status_code: str
     """The error code returned by the call to the API
     
     For example: 422
     """
-
 
     detail: str
     """Some details about the error that occured

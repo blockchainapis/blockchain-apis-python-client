@@ -1,4 +1,4 @@
-from .BlockchainAPIsException import BlockchainAPIsException
+from . import BlockchainAPIsException
 
 class TooManyRequestsException(BlockchainAPIsException):
     """
@@ -9,13 +9,11 @@ class TooManyRequestsException(BlockchainAPIsException):
     - Upgrade your subscription at: https://dashboard.blockchainapis.io/
     """
 
-
     status_code: str
     """The error code returned by the call to the API
     
     For example: 429
     """
-
 
     detail: str
     """Some details about the error that occured

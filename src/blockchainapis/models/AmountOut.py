@@ -40,4 +40,3 @@ class AmountOut:
 
     Example: 11088529
     """
-

@@ -40,4 +40,3 @@ class AmountIn:
 
     Example: 10000
     """
-

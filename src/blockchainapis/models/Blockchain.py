@@ -28,4 +28,3 @@ class Blockchain:
 
     Example: "https://snowtrace.io/"
     """
-

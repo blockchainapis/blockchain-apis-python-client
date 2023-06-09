@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from typing import List
-
 from . import Pair
 
 
@@ -41,4 +40,3 @@ class Pairs:
         }
     ]
     """
-

@@ -26,22 +26,17 @@ from .exceptions import UnauthorizedException
 class BlockchainAPIsSync:
     """High-frequency DEX API
 
-    Our API empowers you to access live financial data across multiple blockchains (currently supporting 6, with more on the way)
-    with unparalleled speed and efficiency.
+        
+    Our API empowers you to access live financial data across multiple blockchains (currently supporting 6, with more on the way) with unparalleled speed and efficiency.
     
-    What sets our API apart? We've optimized performance to deliver an impressive 1000+ calls per second per user, with a
-    lightning-fast processing time of less than 2 millisecond per request. Compare that to other solutions with a 20-millisecond
-    processing time and fewer requests per second, and it's clear why developers choose our API for their trading bots.
+    What sets our API apart? We've optimized performance to deliver an impressive 1000+ calls per second per user, with a lightning-fast processing time of less than 2 millisecond per request. Compare that to other solutions with a 20-millisecond processing time and fewer requests per second, and it's clear why developers choose our API for their trading bots.
     
-    Another game-changing feature is our seamless integration across various blockchains and protocols. With our API, you can reuse
-    the same code without changing a single line, simplifying the development process and saving you valuable time.
+    Another game-changing feature is our seamless integration across various blockchains and protocols. With our API, you can reuse the same code without changing a single line, simplifying the development process and saving you valuable time.
     
-    Ready to try it out? [Sign up for a free API key here](https://dashboard.blockchainapis.io) or start exploring the possibilities
-    on this page. Need support or have questions? Join our [Discord community](https://discord.gg/GphRMJXmS5) where our team and
-    fellow developers are eager to help you make the most of our powerful API.
+    Ready to try it out? [Sign up for a free API key here](https://dashboard.blockchainapis.io) or start exploring the possibilities on this page. Need support or have questions? Join our [Discord community](https://discord.gg/GphRMJXmS5) where our team and fellow developers are eager to help you make the most of our powerful API.
 
-    Please note that this class is using sync which is less optimized. To run more otpimized requests and take advantage of
-    modern async Python, please use: BlockchainAPIs
+    Please note that this class is not async which is less optimized. To run more otpimized
+    requests, please use: BlockchainAPIs
     """
     
     def __init__(self, api_key: str | None = None):
@@ -91,7 +86,7 @@ class BlockchainAPIsSync:
                     raise TokenNotFoundException(response.status, error_data["detail"]["detail"])
                 case "PairNotFoundException":
                     raise PairNotFoundException(response.status, error_data["detail"]["detail"])
-                case "TooManyRequestException":
+                case "TooManyRequestsException":
                     raise TooManyRequestsException(response.status, error_data["detail"]["detail"])
                 case "UnauthorizedException":
                     raise UnauthorizedException(response.status, error_data["detail"]["detail"])
@@ -135,17 +130,18 @@ class BlockchainAPIsSync:
             for r in ret
         ]
 
-
     def exchanges(self, page: int = 1, blockchain: str | None = None) -> Exchanges:
         """Get the list of supported exchanges by the API
 
-        @raises BlockchainNotSupportedException: When an invalid blockchain id is given
-        @raises InvalidPageException: When an invalid page is given
+        :raises BlockchainNotSupportedException: When an invalid blockchain id is given
+        :raises InvalidPageException: When an invalid page is given
 
         :param page: You can ignore this value for this version of the API., defaults to 1
         :type page: int, Optional
+        :example page: 1
         :param blockchain: The blockchain from which you want to get the exchanges, defaults to None
         :type blockchain: str, Optional
+        :example blockchain: ethereum
         :return: The list of all supported exchange of the API.
         
         You can use the exchange id responded from this for other API calls.
@@ -196,14 +192,14 @@ class BlockchainAPIsSync:
             ]
         )
 
-
     def info(self, exchange: str) -> Exchange:
         """Get informations on a specific exchange
 
-        @raises ExchangeNotSupportedException: Thrown when an invalid exchange id is given
+        :raises ExchangeNotSupportedException: Thrown when an invalid exchange id is given
 
         :param exchange: The exchange to get the informations from
         :type exchange: str
+        :example exchange: uniswapv2_ethereum
         :return: Information on a specific exchange.
         
         These informations includes:
@@ -236,20 +232,22 @@ class BlockchainAPIsSync:
             url=ret["url"]
         )
 
-
     def pairs(self, page: int = 1, blockchain: str | None = None, exchange: str | None = None) -> Pairs:
         """Get the list of pairs supported by the API
 
-        @raises BlockchainNotSupportedException: When an invalid blockchain id is given
-        @raises ExchangeNotSupportedException: When an invalid Exchange id is given
-        @raises InvalidPageException: When you give an invalid page number
+        :raises BlockchainNotSupportedException: When an invalid blockchain id is given
+        :raises ExchangeNotSupportedException: When an invalid Exchange id is given
+        :raises InvalidPageException: When you give an invalid page number
 
         :param page: Each request has a maximum of 100 results separated by page, defaults to 1
         :type page: int, Optional
+        :example page: 1
         :param blockchain: The blockchain from which you want to get the pairs, defaults to None
         :type blockchain: str, Optional
+        :example blockchain: ethereum
         :param exchange: The exchange from which you want to get the pairs, defaults to None
         :type exchange: str, Optional
+        :example exchange: uniswapv2_ethereum
         :return: The list of pairs supported by the API. It returns token addresses,
         blockchain, exchange and the fee that the pair has.
         
@@ -304,22 +302,25 @@ class BlockchainAPIsSync:
             ]
         )
 
-
     def reserves(self, blockchain: str, token0: str, token1: str, exchange: str | None = None) -> List[Reserve]:
         """Get the liquidity inside of the reserve of two tokens.
 
-        @raises BlockchainNotSupportedException: When an invalid blockchain id is given
-        @raises ExchangeNotSupportedException: When an invalid exchange id is given
-        @raises PairNotFoundException: When a pair is not found for the given blockchain or exchange
+        :raises BlockchainNotSupportedException: When an invalid blockchain id is given
+        :raises ExchangeNotSupportedException: When an invalid exchange id is given
+        :raises PairNotFoundException: When a pair is not found for the given blockchain or exchange
 
         :param blockchain: The id of the blockchain on which the exchange will happen. It is required because some tokens can have same address accross multiple blockchains
         :type blockchain: str
+        :example blockchain: ethereum
         :param token0: The address of the first token of the pair
         :type token0: str
+        :example token0: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2
         :param token1: The address of the second token of the pair
         :type token1: str
+        :example token1: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
         :param exchange: The id of the exchange from which you want to get the reserve, defaults to None
         :type exchange: str, Optional
+        :example exchange: uniswapv2_ethereum
         :return: The list of all of the reserve for the given pair, blockchain and exchange.
         Can return an empty list if the given pair was not found.
 
@@ -359,24 +360,28 @@ class BlockchainAPIsSync:
             for r in ret
         ]
 
-
     def amount_out(self, blockchain: str, tokenIn: str, tokenOut: str, amountIn: int, exchange: str | None = None) -> List[AmountOut]:
-        """Get the amount of token1 that you will get after selling amountIn token0
+        """Get the amount of tokenOut that you will get after selling amountIn tokenIn
 
-        @raises BlockchainNotSupportedException: When an invalid blockchain id is given
-        @raises ExchangeNotSupportedException: When an invalid exchange id is given
-        @raises PairNotFoundException: When a pair is not found for the given blockchain or exchange
+        :raises BlockchainNotSupportedException: When an invalid blockchain id is given
+        :raises ExchangeNotSupportedException: When an invalid exchange id is given
+        :raises PairNotFoundException: When a pair is not found for the given blockchain or exchange
 
         :param blockchain: The id of the blockchain on which this exchange take place
         :type blockchain: str
+        :example blockchain: ethereum
         :param tokenIn: The address of the token that you sell
         :type tokenIn: str
+        :example tokenIn: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2
         :param tokenOut: The address of the token that you buy
         :type tokenOut: str
-        :param amountIn: The amount of token0 that you sell
+        :example tokenOut: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
+        :param amountIn: The amount of tokenIn that you sell
         :type amountIn: int
+        :example amountIn: 1000000000000000000
         :param exchange: The exchange on which you want to do the trade, defaults to None
         :type exchange: str, Optional
+        :example exchange: uniswapv2_ethereum
         :return: The list of the amount out that you will get on all of the exchanges. It can return an empty list if the given pair was not found for the given parameters.
 
 
@@ -416,24 +421,28 @@ class BlockchainAPIsSync:
             for r in ret
         ]
 
-
     def amount_in(self, blockchain: str, tokenIn: str, tokenOut: str, amountOut: int, exchange: str | None = None) -> List[AmountIn]:
-        """Get the amount of token0 that you need to sell in order to get amountIn token1
+        """Get the amount of tokenIn that you need to sell in order to get amountOut tokenOut
 
-        @raises BlockchainNotSupportedException: When an invalid blockchain id is given
-        @raises ExchangeNotSupportedException: When an invalid exchange id is given
-        @raises PairNotFoundException: When a pair is not found for the given blockchain or exchange
+        :raises BlockchainNotSupportedException: When an invalid blockchain id is given
+        :raises ExchangeNotSupportedException: When an invalid exchange id is given
+        :raises PairNotFoundException: When a pair is not found for the given blockchain or exchange
 
         :param blockchain: The id of the blockchain on which this exchange take place
         :type blockchain: str
+        :example blockchain: ethereum
         :param tokenIn: The address of the token that you sell
         :type tokenIn: str
+        :example tokenIn: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
         :param tokenOut: The address of the token that you buy
         :type tokenOut: str
-        :param amountOut: The amount of token1 that you are trying to get
+        :example tokenOut: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2
+        :param amountOut: The amount of tokenOut that you are trying to get
         :type amountOut: int
+        :example amountOut: 1000000000000000000
         :param exchange: The exchange on which you want to do the trade, defaults to None
         :type exchange: str, Optional
+        :example exchange: uniswapv2_ethereum
         :return: The list of amount in that you will get on all of the exchanges. It can return an empty list if the given pair was not found.
 
 
@@ -473,17 +482,18 @@ class BlockchainAPIsSync:
             for r in ret
         ]
 
-
     def tokens(self, page: int = 1, blockchain: str | None = None) -> Tokens:
         """Get the list of supported tokens
 
-        @raises BlockchainNotSupportedException: When an invalid blockchain id is given
-        @raises InvalidPageException: When an invalid page number is given
+        :raises BlockchainNotSupportedException: When an invalid blockchain id is given
+        :raises InvalidPageException: When an invalid page number is given
 
         :param page: Each request have a limit of 100 data separated per pages, defaults to 1
         :type page: int, Optional
+        :example page: 1
         :param blockchain: The blockchain on which you want to get the tokens, defaults to None
         :type blockchain: str, Optional
+        :example blockchain: ethereum
         :return: The list of supported tokens ordered by market cap in a descending order.
         
         The market capitalization is in dollars, it can be null if the liquidity available for the given token is lower than 1000$.
@@ -566,17 +576,18 @@ class BlockchainAPIsSync:
             ]
         )
 
-
     def info(self, blockchain: str, token: str) -> Token:
         """Get information on a specific token
 
-        @raises BlockchainNotSupportedException: When an invalid blockchain id is given
-        @raises TokenNotFoundException: When the given token is not found
+        :raises BlockchainNotSupportedException: When an invalid blockchain id is given
+        :raises TokenNotFoundException: When the given token is not found
 
         :param blockchain: The blockchain on which you want to get the information of the token
         :type blockchain: str
+        :example blockchain: ethereum
         :param token: The address of the token that you want to get the informations from
         :type token: str
+        :example token: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2
         :return: Informations on a specific token.
         
         This information includes:
@@ -609,16 +620,17 @@ class BlockchainAPIsSync:
             market_cap=ret["market_cap"]
         )
 
-
     def decimals(self, blockchain: str, token: str) -> int:
         """Get the decimals of the given token
 
-        @raises HTTPValidationError: Validation Error
+        :raises HTTPValidationError: Validation Error
 
         :param blockchain: The id of the blockchain of the token
         :type blockchain: str
+        :example blockchain: ethereum
         :param token: The address of the token that you want to get the decimals from
         :type token: str
+        :example token: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2
         :return: The decimals of the specific token
 
 
@@ -633,4 +645,3 @@ class BlockchainAPIsSync:
         params["token"] = token
         ret = self._do_request("/v0/tokens/decimals", params)
         return int(ret)
-

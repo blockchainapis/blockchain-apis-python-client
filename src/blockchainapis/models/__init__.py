@@ -6,7 +6,7 @@ These models are all dataclasses that have the slots and frozen set to True.
 
 - `slots=True` Allow you to have more optimized access to the data
 - `frozen=True` This way you can't modify the returned values from the API.
-                Because what the API return is final it should not be modified.
+              Because what the API return is final it should not be modified.
 
 To access some data use the Python dot "." notation.
 
@@ -35,9 +35,8 @@ blockchain_instance = Blockchain(
 # This will throw an exception, use the notation in the example
 # above please.
 print(blockchain_instance["blockchain"])
-```
-"""
 
+"""
 from .AmountIn import AmountIn
 from .AmountOut import AmountOut
 from .Blockchain import Blockchain

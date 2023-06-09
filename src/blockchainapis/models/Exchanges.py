@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from typing import List
-
 from . import Exchange
 
 
@@ -41,4 +40,3 @@ class Exchanges:
         }
     ]
     """
-

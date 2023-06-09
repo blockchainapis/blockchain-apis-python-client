@@ -1,4 +1,4 @@
-from .BlockchainAPIsException import BlockchainAPIsException
+from . import BlockchainAPIsException
 
 class TokenNotFoundException(BlockchainAPIsException):
     """
@@ -9,13 +9,11 @@ class TokenNotFoundException(BlockchainAPIsException):
     You can get a list of all of the available tokens by calling `/tokens`
     """
 
-
     status_code: str
     """The error code returned by the call to the API
     
     For example: 404
     """
-
 
     detail: str
     """Some details about the error that occured

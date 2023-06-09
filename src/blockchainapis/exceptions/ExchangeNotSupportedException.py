@@ -1,4 +1,4 @@
-from .BlockchainAPIsException import BlockchainAPIsException
+from . import BlockchainAPIsException
 
 class ExchangeNotSupportedException(BlockchainAPIsException):
     """
@@ -7,13 +7,11 @@ class ExchangeNotSupportedException(BlockchainAPIsException):
     To get the list of supported exchange ids, call `/exchanges`
     """
 
-
     status_code: str
     """The error code returned by the call to the API
     
     For example: 422
     """
-
 
     detail: str
     """Some details about the error that occured

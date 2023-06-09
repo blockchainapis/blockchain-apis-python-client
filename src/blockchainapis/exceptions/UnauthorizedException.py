@@ -1,4 +1,4 @@
-from .BlockchainAPIsException import BlockchainAPIsException
+from . import BlockchainAPIsException
 
 class UnauthorizedException(BlockchainAPIsException):
     """
@@ -10,13 +10,11 @@ class UnauthorizedException(BlockchainAPIsException):
     - Update/get a valid API key at: https://dashboard.blockchainapis.io/
     """
 
-
     status_code: str
     """The error code returned by the call to the API
     
     For example: 401
     """
-
 
     detail: str
     """Some details about the error that occured

@@ -1,4 +1,4 @@
-from .BlockchainAPIsException import BlockchainAPIsException
+from . import BlockchainAPIsException
 
 class BlockchainNotSupportedException(BlockchainAPIsException):
     """
@@ -7,13 +7,11 @@ class BlockchainNotSupportedException(BlockchainAPIsException):
     To get the list of valid blockchain ids, call `/blockchains`
     """
 
-
     status_code: str
     """The error code returned by the call to the API
     
     For example: 422
     """
-
 
     detail: str
     """Some details about the error that occured

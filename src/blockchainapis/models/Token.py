@@ -33,4 +33,3 @@ This value is in Decimal, and is based on USDT.
 
     Example: Decimal(62609470.072472)
     """
-

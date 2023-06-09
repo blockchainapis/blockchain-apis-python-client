@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from typing import List
-
 from . import Token
 
 
@@ -69,4 +68,3 @@ class Tokens:
         }
     ]
     """
-

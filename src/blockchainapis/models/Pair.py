@@ -34,4 +34,3 @@ class Pair:
 
     Example: 300
     """
-
