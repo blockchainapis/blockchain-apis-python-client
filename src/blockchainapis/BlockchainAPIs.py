@@ -79,6 +79,25 @@ class BlockchainAPIs:
         """
         await self._session.close()
 
+    async def __aenter__(self):
+        """Called when you use `async with`.
+        
+        For example:
+        async with BlockchainAPIs() as blockchain_apis:
+            # do some stuff
+            pass
+
+        :return: self
+        :rtype: self
+        """
+        return self
+
+    async def __aexit__(self, *_):
+        """Called at the end of the `async with` statement in order
+        to free the resources used by the API instance.
+        """
+        await self.close()
+
     async def _do_request(self, path: str, params: Dict[str, Any] | None = None) -> Dict[str, Any]:
         """Make raw API request (that return the json result).
         
