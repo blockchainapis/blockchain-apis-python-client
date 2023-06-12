@@ -85,19 +85,19 @@ class BlockchainAPIsSync:
             error_type = error_data["detail"]["error_type"]
             match error_type:
                 case "BlockchainNotSupportedException":
-                    raise BlockchainNotSupportedException(response.status, error_data["detail"]["detail"])
+                    raise BlockchainNotSupportedException(response.status_code, error_data["detail"]["detail"])
                 case "ExchangeNotSupportedException":
-                    raise ExchangeNotSupportedException(response.status, error_data["detail"]["detail"])
+                    raise ExchangeNotSupportedException(response.status_code, error_data["detail"]["detail"])
                 case "InvalidPageException":
-                    raise InvalidPageException(response.status, error_data["detail"]["detail"])
+                    raise InvalidPageException(response.status_code, error_data["detail"]["detail"])
                 case "TokenNotFoundException":
-                    raise TokenNotFoundException(response.status, error_data["detail"]["detail"])
+                    raise TokenNotFoundException(response.status_code, error_data["detail"]["detail"])
                 case "PairNotFoundException":
-                    raise PairNotFoundException(response.status, error_data["detail"]["detail"])
+                    raise PairNotFoundException(response.status_code, error_data["detail"]["detail"])
                 case "TooManyRequestsException":
-                    raise TooManyRequestsException(response.status, error_data["detail"]["detail"])
+                    raise TooManyRequestsException(response.status_code, error_data["detail"]["detail"])
                 case "UnauthorizedException":
-                    raise UnauthorizedException(response.status, error_data["detail"]["detail"])
+                    raise UnauthorizedException(response.status_code, error_data["detail"]["detail"])
                 case unknown:
                     raise Exception(f"Unkwnown Exception type: {unknown}.\nGot this exception while handling:\n{error_data} with status code: {response.status}")
 
