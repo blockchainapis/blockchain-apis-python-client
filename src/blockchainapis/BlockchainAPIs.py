@@ -684,3 +684,63 @@ class BlockchainAPIs:
         params["token"] = token
         ret = await self._do_request("/v0/tokens/decimals", params)
         return int(ret)
+
+    async def get_token_decimal_form(self, blockchain: str, token: str, amount: int) -> str:
+        """Convert a token from his unsigned integer form to his decimal form
+
+        :param blockchain: The id of the blockchain that you are working on
+        :type blockchain: str
+        :example blockchain: ethereum
+        :param token: The address of the token that we want to get the decimal form
+        :type token: str
+        :example token: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2
+        :param amount: The amount in the unsigned integer form that we want to convert
+        :type amount: int
+        :example amount: 2500000000000000000
+        :return: The token in his decimal form
+        :rtype: str
+        """
+        decimals = await self.decimals(blockchain, token)
+        str_amount = str(amount)
+        
+        # Check if the string length is less than the decimals
+        if len(str_amount) <= decimals:
+            # Add leading zeros to the string
+            str_amount = '0' * (decimals - len(str_amount) + 1) + str_amount
+            
+        # Insert the decimal point at the correct position
+        str_amount = str_amount[:-decimals] + "." + str_amount[-decimals:]
+        return str_amount
+
+    async def get_token_unsigned_form(self, blockchain: str, token: str, amount: str) -> int:
+        """Convert a token from his decimal form back to his unsigned integer form (this
+        method does the reverse of get_token_decimal_form)
+
+        :param blockchain: The id of the blockchain from which is the token
+        :type blockchain: str
+        :param token: The address of the token that you want to convert
+        :type token: str
+        :param amount: The amount in str that you want to convert
+        :type amount: str
+        :return: The amount given in his unsigned integer format
+        :rtype: int
+        """
+        decimals = await self.decimals(blockchain, token)
+        split = amount.split('.')
+        if len(split) >= 2:
+            integer_part, fractional_part = split
+        else:
+            integer_part, fractional_part = split[0], ""
+
+        # Check if the fractional part has less digits than the decimal places
+        if len(fractional_part) < decimals:
+            # Append zeros to the end of the fractional part
+            fractional_part += '0' * (decimals - len(fractional_part))
+        else:
+            # Trim the fractional part to the number of decimal places
+            fractional_part = fractional_part[:decimals]
+
+        # Combine the integer and fractional parts and convert to an integer
+        integer_token_amount = int(integer_part + fractional_part)
+
+        return integer_token_amount
