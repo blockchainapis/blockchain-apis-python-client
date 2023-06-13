@@ -685,8 +685,10 @@ class BlockchainAPIs:
         ret = await self._do_request("/v0/tokens/decimals", params)
         return int(ret)
 
-    async def get_token_decimal_form(self, blockchain: str, token: str, amount: int) -> str:
-        """Convert a token from his unsigned integer form to his decimal form
+    async def display_token(self, blockchain: str, token: str, amount: int) -> str:
+        """Convert a token from his unsigned integer form to his decimal form.
+        
+        This method should be used when you want to display a token
 
         :param blockchain: The id of the blockchain that you are working on
         :type blockchain: str
