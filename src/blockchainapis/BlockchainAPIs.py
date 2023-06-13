@@ -688,7 +688,9 @@ class BlockchainAPIs:
     async def display_token(self, blockchain: str, token: str, amount: int) -> str:
         """Convert a token from his unsigned integer form to his decimal form.
         
-        This method should be used when you want to display a token
+        This method should be used when you want to display a token.
+        
+        For the highest precision, the implementation only uses str.
 
         :param blockchain: The id of the blockchain that you are working on
         :type blockchain: str
@@ -717,6 +719,8 @@ class BlockchainAPIs:
     async def get_token_unsigned_form(self, blockchain: str, token: str, amount: str) -> int:
         """Convert a token from his decimal form back to his unsigned integer form (this
         method does the reverse of get_token_decimal_form)
+
+        For the highest precision, the implementation only uses str
 
         :param blockchain: The id of the blockchain from which is the token
         :type blockchain: str
