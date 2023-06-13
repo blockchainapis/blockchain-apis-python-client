@@ -685,26 +685,29 @@ class BlockchainAPIs:
         ret = await self._do_request("/v0/tokens/decimals", params)
         return int(ret)
 
-    async def display_token(self, blockchain: str, token: str, amount: int) -> str:
+    def get_token_decimal_form(self, amount: int, decimals: int) -> str:
         """Convert a token from his unsigned integer form to his decimal form.
         
-        This method should be used when you want to display a token.
+        This method should be used when you want to display a token to a user.
         
-        For the highest precision, the implementation only uses str.
+        For highest precision, the implementation is made using only str.
 
-        :param blockchain: The id of the blockchain that you are working on
-        :type blockchain: str
-        :example blockchain: ethereum
-        :param token: The address of the token that we want to get the decimal form
-        :type token: str
-        :example token: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2
-        :param amount: The amount in the unsigned integer form that we want to convert
+        :param amount: The integer amount that you want to convert
         :type amount: int
         :example amount: 2500000000000000000
-        :return: The token in his decimal form
+        :param decimals: The amount of decimals that the token you are trying to convert
+                         has. You can use the [decimals](/docs/python-sdk/blockchain-apis/decimals)
+                         method in order to get the amount of decimals.
+        :type decimals: int
+        :example decimals: 18
+        :return: The given amount in a decimal form.
+        
+        Example response:
+        ```json
+        2.5
+        ```
         :rtype: str
         """
-        decimals = await self.decimals(blockchain, token)
         str_amount = str(amount)
         
         # Check if the string length is less than the decimals
@@ -716,22 +719,30 @@ class BlockchainAPIs:
         str_amount = str_amount[:-decimals] + "." + str_amount[-decimals:]
         return str_amount
 
-    async def get_token_unsigned_form(self, blockchain: str, token: str, amount: str) -> int:
+    def get_token_unsigned_form(self, amount: str, decimals: int) -> int:
         """Convert a token from his decimal form back to his unsigned integer form (this
         method does the reverse of get_token_decimal_form)
+        
+        This method should be used when you receive an amount from a user, in order to convert his
+        input.
 
         For the highest precision, the implementation only uses str
 
-        :param blockchain: The id of the blockchain from which is the token
-        :type blockchain: str
-        :param token: The address of the token that you want to convert
-        :type token: str
-        :param amount: The amount in str that you want to convert
+        :param amount: The amount in str format that you want to convert
         :type amount: str
-        :return: The amount given in his unsigned integer format
+        :example amount: 2.5
+        :param decimals: The amount of decimals that the token has. You can use the [decimals](/docs/python-sdk/blockchain-apis/decimals)
+                         method in order to get the amount of decimals.
+        :type decimals: int
+        :example decimals: 18
+        :return: The amount converted to unsigned integer
+        
+        Example response:
+        ```json
+        2500000000000000000
+        ```
         :rtype: int
         """
-        decimals = await self.decimals(blockchain, token)
         split = amount.split('.')
         if len(split) >= 2:
             integer_part, fractional_part = split
