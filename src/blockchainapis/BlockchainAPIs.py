@@ -717,6 +717,8 @@ class BlockchainAPIs:
             
         # Insert the decimal point at the correct position
         str_amount = str_amount[:-decimals] + "." + str_amount[-decimals:]
+        
+        str_amount = str_amount.rstrip('0').rstrip('.') if '.' in str_amount else str_amount
         return str_amount
 
     def get_token_unsigned_form(self, amount: str, decimals: int) -> int:
