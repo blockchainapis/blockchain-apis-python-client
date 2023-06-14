@@ -6,7 +6,7 @@ class TestUnsignedDecimal(BlockchainAPIsTester):
         self.assertEqual(2500000000000000000, self.api.get_token_unsigned_form(decimal_form, 18))
 
     async def test_unsigned_then_decimal(self):
-        unsigned_form = self.api.get_token_unsigned_form("2.5")
+        unsigned_form = self.api.get_token_unsigned_form("2.5", 18)
         self.assertEqual("2.5", self.api.get_token_decimal_form(unsigned_form, 18))
 
     async def test_decimal_then_unsigned_short(self):
@@ -15,7 +15,7 @@ class TestUnsignedDecimal(BlockchainAPIsTester):
 
     async def test_unsigned_then_decimal_short(self):
         unsigned_form = self.api.get_token_unsigned_form("2.504", 18)
-        self.assertEqual("2.504", self.api.get_token_unsigned_form(unsigned_form))
+        self.assertEqual("2.504", self.api.get_token_decimal_form(unsigned_form, 18))
 
     async def test_decimal_then_unsigned_long(self):
         decimal_form = self.api.get_token_decimal_form(2500000000000000001, 18)
