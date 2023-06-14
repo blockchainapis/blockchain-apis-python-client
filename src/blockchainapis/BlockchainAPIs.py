@@ -709,7 +709,11 @@ class BlockchainAPIs:
         :rtype: str
         """
         str_amount = str(amount)
-        
+
+        # special case when decimals is 0
+        if decimals == 0:
+            return str_amount
+
         # Check if the string length is less than the decimals
         if len(str_amount) <= decimals:
             # Add leading zeros to the string
