@@ -1,6 +1,6 @@
 from BlockchainAPIsTester import BlockchainAPIsTester
 
-class TestTokenDecimalForm(BlockchainAPIsTester):
+class TestTokenUnsignedForm(BlockchainAPIsTester):
     async def test_to_unsigned(self):
         unsigned_form = self.api.get_token_unsigned_form("2.5", 18)
         self.assertEqual(unsigned_form, 2500000000000000000)
