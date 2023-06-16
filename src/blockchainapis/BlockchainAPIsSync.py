@@ -653,6 +653,7 @@ class BlockchainAPIsSync:
         params["token"] = token
         ret = self._do_request("/v0/tokens/decimals", params)
         return int(ret)
+
     def get_token_decimal_form(self, amount: int, decimals: int) -> str:
         """Convert a token from his unsigned integer form to his decimal form.
         
