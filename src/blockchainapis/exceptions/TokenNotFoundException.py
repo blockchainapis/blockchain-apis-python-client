@@ -9,7 +9,7 @@ class TokenNotFoundException(BlockchainAPIsException):
     You can get a list of all of the available tokens by calling `/tokens`
     """
 
-    status_code: str
+    status_code: int
     """The error code returned by the call to the API
     
     For example: 404
@@ -22,5 +22,5 @@ class TokenNotFoundException(BlockchainAPIsException):
     Token 0x8E870D67F660D95d5be530380D0eC0bd388289E1 not found for blockchain ethereum
     """
 
-    def __init__(self, error_code: int, detail: str):
-        super().__init__(error_code, detail)    
+    def __init__(self, status_code: int, detail: str):
+        super().__init__(status_code, detail)    

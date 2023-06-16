@@ -7,7 +7,7 @@ class BlockchainNotSupportedException(BlockchainAPIsException):
     To get the list of valid blockchain ids, call `/blockchains`
     """
 
-    status_code: str
+    status_code: int
     """The error code returned by the call to the API
     
     For example: 422
@@ -20,5 +20,5 @@ class BlockchainNotSupportedException(BlockchainAPIsException):
     Blockchain with id "test" is not supported. You can find a list of valid blockchain ids in /blockchains
     """
 
-    def __init__(self, error_code: int, detail: str):
-        super().__init__(error_code, detail)    
+    def __init__(self, status_code: int, detail: str):
+        super().__init__(status_code, detail)    

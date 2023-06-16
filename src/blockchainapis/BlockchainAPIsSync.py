@@ -21,27 +21,20 @@ from .exceptions import TokenNotFoundException
 from .exceptions import PairNotFoundException
 from .exceptions import TooManyRequestsException
 from .exceptions import UnauthorizedException
+from .exceptions import UnknownBlockchainAPIsException
 
 
 class BlockchainAPIsSync:
     """High-frequency DEX API
 
-    Our API empowers you to access live financial data across multiple blockchains
-    (currently supporting 6, with more on the way) with unparalleled speed and efficiency.
+        
+    Our API empowers you to access live financial data across multiple blockchains (currently supporting 6, with more on the way) with unparalleled speed and efficiency.
     
-    What sets our API apart? We've optimized performance to deliver an impressive 1000+
-    calls per second per user, with a lightning-fast processing time of less than 2 millisecond
-    per request. Compare that to other solutions with a 20-millisecond processing time and fewer
-    requests per second, and it's clear why developers choose our API for their trading bots.
+    What sets our API apart? We've optimized performance to deliver an impressive 1000+ calls per second per user, with a lightning-fast processing time of less than 2 millisecond per request. Compare that to other solutions with a 20-millisecond processing time and fewer requests per second, and it's clear why developers choose our API for their trading bots.
     
-    Another game-changing feature is our seamless integration across various blockchains and
-    protocols. With our API, you can reuse the same code without changing a single line, simplifying
-    the development process and saving you valuable time.
+    Another game-changing feature is our seamless integration across various blockchains and protocols. With our API, you can reuse the same code without changing a single line, simplifying the development process and saving you valuable time.
     
-    Ready to try it out? [Sign up for a free API key here](https://dashboard.blockchainapis.io)
-    or start exploring the possibilities on this page. Need support or have questions? Join our
-    [Discord community](https://discord.gg/GphRMJXmS5) where our team and fellow developers are
-    eager to help you make the most of our powerful API.
+    Ready to try it out? [Sign up for a free API key here](https://dashboard.blockchainapis.io) or start exploring the possibilities on this page. Need support or have questions? Join our [Discord community](https://discord.gg/GphRMJXmS5) where our team and fellow developers are eager to help you make the most of our powerful API.
 
     Please note that this class is not async which is less optimized. To run more otpimized
     requests, please use: BlockchainAPIs
@@ -71,6 +64,15 @@ class BlockchainAPIsSync:
         It makes the request in a synchronous way and you don't need to close the
         BlockchainAPIs instance.
 
+        :raises BlockchainNotSupportedException: Thrown when an Invalid blockchain id is put during a call to the API.
+        :raises ExchangeNotSupportedException: Thrown when an Invalid exchange id is given during a call to the API.
+        :raises InvalidPageException: Thrown when you given an invalid page index during calls to responses thatgives paginated results.
+        :raises TokenNotFoundException: Thrown when you try to get informations on a token that does not exist inside of our database.
+        :raises PairNotFoundException: Thrown when you try to get some data about a pair that does not exist.
+        :raises TooManyRequestsException: Thrown when you are doing more request than you are allowed to the API.
+        :raises UnauthorizedException: Thrown when you are trying to make an API request with an invalid or expiredAPI key.
+        :raises UnknownBlockchainAPIsException: When an unknown exception happens
+
         :param path: The path of the request
         :type path: str
         :param params: The optional query parameters of the request, defaults to None
@@ -98,8 +100,8 @@ class BlockchainAPIsSync:
                     raise TooManyRequestsException(response.status_code, error_data["detail"]["detail"])
                 case "UnauthorizedException":
                     raise UnauthorizedException(response.status_code, error_data["detail"]["detail"])
-                case unknown:
-                    raise Exception(f"Unkwnown Exception type: {unknown}.\nGot this exception while handling:\n{error_data} with status code: {response.status}")
+                case _:
+                    raise UnknownBlockchainAPIsException(response.status, f"Unkwnown Exception type: {error_type}.\nGot this exception while handling:\n{error_data} with status code: {response.status}")
 
         return response.json()
 
@@ -631,7 +633,8 @@ class BlockchainAPIsSync:
     def decimals(self, blockchain: str, token: str) -> int:
         """Get the decimals of the given token
 
-        :raises HTTPValidationError: Validation Error
+        :raises BlockchainNotSupportedException: When an invalid blockchain id is given
+        :raises TokenNotFoundException: WHen the given token is not found
 
         :param blockchain: The id of the blockchain of the token
         :type blockchain: str

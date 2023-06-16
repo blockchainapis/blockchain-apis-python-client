@@ -13,7 +13,7 @@ class InvalidPageException(BlockchainAPIsException):
     the amount of pages available.
     """
 
-    status_code: str
+    status_code: int
     """The error code returned by the call to the API
     
     For example: 400
@@ -26,5 +26,5 @@ class InvalidPageException(BlockchainAPIsException):
     -2 is not a valid page number.
     """
 
-    def __init__(self, error_code: int, detail: str):
-        super().__init__(error_code, detail)    
+    def __init__(self, status_code: int, detail: str):
+        super().__init__(status_code, detail)    

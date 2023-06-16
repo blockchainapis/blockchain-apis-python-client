@@ -8,7 +8,7 @@ class PairNotFoundException(BlockchainAPIsException):
     the blockchain and exchange that you are interested in by calling `/exchanges/pairs`
     """
 
-    status_code: str
+    status_code: int
     """The error code returned by the call to the API
     
     For example: 422
@@ -21,5 +21,5 @@ class PairNotFoundException(BlockchainAPIsException):
     Pair 0x8E870D67F660D95d5be530380D0eC0bd388289E1->0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 not found in blockchain Arbitrum
     """
 
-    def __init__(self, error_code: int, detail: str):
-        super().__init__(error_code, detail)    
+    def __init__(self, status_code: int, detail: str):
+        super().__init__(status_code, detail)    

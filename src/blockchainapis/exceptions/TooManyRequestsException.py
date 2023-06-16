@@ -9,7 +9,7 @@ class TooManyRequestsException(BlockchainAPIsException):
     - Upgrade your subscription at: https://dashboard.blockchainapis.io/
     """
 
-    status_code: str
+    status_code: int
     """The error code returned by the call to the API
     
     For example: 429
@@ -22,5 +22,5 @@ class TooManyRequestsException(BlockchainAPIsException):
     Too many requests
     """
 
-    def __init__(self, error_code: int, detail: str):
-        super().__init__(error_code, detail)    
+    def __init__(self, status_code: int, detail: str):
+        super().__init__(status_code, detail)    

@@ -20,6 +20,7 @@ from .exceptions import TokenNotFoundException
 from .exceptions import PairNotFoundException
 from .exceptions import TooManyRequestsException
 from .exceptions import UnauthorizedException
+from .exceptions import UnknownBlockchainAPIsException
 
 
 class BlockchainAPIs:
@@ -103,6 +104,15 @@ class BlockchainAPIs:
         
         This method additionaly adds the user API key to the request if it is present.
 
+        :raises BlockchainNotSupportedException: Thrown when an Invalid blockchain id is put during a call to the API.
+        :raises ExchangeNotSupportedException: Thrown when an Invalid exchange id is given during a call to the API.
+        :raises InvalidPageException: Thrown when you given an invalid page index during calls to responses thatgives paginated results.
+        :raises TokenNotFoundException: Thrown when you try to get informations on a token that does not exist inside of our database.
+        :raises PairNotFoundException: Thrown when you try to get some data about a pair that does not exist.
+        :raises TooManyRequestsException: Thrown when you are doing more request than you are allowed to the API.
+        :raises UnauthorizedException: Thrown when you are trying to make an API request with an invalid or expiredAPI key.
+        :raises UnknownBlockchainAPIsException: When an unknown exception happens
+
         :param path: The path to the request
         :type path: str
         :param params: The optional query parameters of the request, defaults to None
@@ -129,8 +139,8 @@ class BlockchainAPIs:
                         raise TooManyRequestsException(response.status, error_data["detail"]["detail"])
                     case "UnauthorizedException":
                         raise UnauthorizedException(response.status, error_data["detail"]["detail"])
-                    case unknown:
-                        raise Exception(f"Unkwnown Exception type: {unknown}.\nGot this exception while handling:\n{error_data} with status code: {response.status}")
+                    case _:
+                        raise UnknownBlockchainAPIsException(response.status, f"Unkwnown Exception type: {error_type}.\nGot this exception while handling:\n{error_data} with status code: {response.status}")
 
             return await response.json()
 
@@ -662,7 +672,8 @@ class BlockchainAPIs:
     async def decimals(self, blockchain: str, token: str) -> int:
         """Get the decimals of the given token
 
-        :raises HTTPValidationError: Validation Error
+        :raises BlockchainNotSupportedException: When an invalid blockchain id is given
+        :raises TokenNotFoundException: WHen the given token is not found
 
         :param blockchain: The id of the blockchain of the token
         :type blockchain: str
