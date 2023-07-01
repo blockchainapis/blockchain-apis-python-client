@@ -77,6 +77,15 @@ class BlockchainAPIs:
         
         You must call this method at the end of your program or when you have finished
         working with BlockchainAPIs.
+        
+        Please note, if you do:
+        ```py
+        async with BlockchainAPIs() as instance:
+            # do some calls...
+            pass
+        ```
+        
+        The instance is automatically closed at the end of the async with.
         """
         await self._session.close()
 
